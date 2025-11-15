@@ -1,0 +1,4 @@
+123|Anna Virtanen|2025-10-31|10:00|2|19.95|True|Kokoustila A|0401234567|anna.virtanen@example.com
+234|Sami Suikkala|2025-11-14|9:00|3|19.95|True|Kokoustila B|0450065479|sami.suikkala@ninnannunna.se
+687|Timo Tonteri|2025-08-15|20:00|5|140.45|False|Kattohuoneisto|020202|timppa.tonttu@kotinetti.fi
+345|Tero Tiinanen|2025-07-18|07:00|1|20.00|True|Kellari|04455456789|terppana.tirppana@joulupukinkuumalinja.fi
