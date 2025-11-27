@@ -44,43 +44,43 @@ def varausten_vahvistusstatus(varaukset: list):
         if(varaus[8]):
             print(f"{varaus[1]} → Vahvistettu")
         else:
-            print(f"{varaus[1]} → EI vahvistettu")
+            print(f"{varaus[1]} → Ei ole vahvistettu")
 
     print()
 
 def varausten_lkm(varaukset: list):
-    vahvistetutVaraukset = 0
-    eiVahvistetutVaraukset = 0
+    onvahvistettu = 0
+    eivahvistettu = 0
     for varaus in varaukset[1:]:
         if(varaus[8]):
-            vahvistetutVaraukset += 1
+            onvahvistettu += 1
         else:
-            eiVahvistetutVaraukset += 1
+            eivahvistettu += 1
 
-    print(f"- Vahvistettuja varauksia: {vahvistetutVaraukset} kpl")
-    print(f"- Ei-vahvistettuja varauksia: {eiVahvistetutVaraukset} kpl")
+    print(f"- Vahvistettuja varauksia: {onvahvistettu} kpl")
+    print(f"- Ei-vahvistettuja varauksia: {eivahvistettu} kpl")
     print()
 
 def varausten_kokonaistulot(varaukset: list):
-    varaustenTulot = 0
+    tulot = 0
     for varaus in varaukset[1:]:
         if(varaus[8]):
-            varaustenTulot += varaus[6]*varaus[7]
+            tulot += varaus[6]*varaus[7]
 
-    print("Vahvistettujen varausten kokonaistulot:", f"{varaustenTulot:.2f}".replace('.', ','), "€")
+    print("Vahvistettujen varausten kokonaistulot:", f"{tulot:.2f}".replace('.', ','), "€")
     print()
 
 def main():
     varaukset = hae_varaukset("varaukset.txt")
-    print("1) Vahvistetut varaukset")
+    print("1) VAHVISTETUT VARAUKSET")
     vahvistetut_varaukset(varaukset)
-    print("2) Pitkät varaukset (≥ 3 h)")
+    print("2) PITKÄT VARAUKSET (≥ 3 h)")
     pitkat_varaukset(varaukset)
-    print("3) Varausten vahvistusstatus")
+    print("3) VARAUSTEN VAHVISTUS-STATUS")
     varausten_vahvistusstatus(varaukset)
-    print("4) Yhteenveto vahvistuksista")
+    print("4) YHTEENVETO VAHVISTUKSISTA")
     varausten_lkm(varaukset)
-    print("5) Vahvistettujen varausten kokonaistulot")
+    print("5) VAHVISTETTUJEN VARAUSTEN KOKONAISTULOT")
     varausten_kokonaistulot(varaukset)
     
 if __name__ == "__main__":
