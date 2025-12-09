@@ -1,5 +1,5 @@
-#Copyright (c) 2025 Nea Järvenpää
-#This code is licensed under the MIT License.
+# Copyright (c) 2025 Nea Järvenpää
+# This code is licensed under the MIT License.
 
 from datetime import datetime, date
 
@@ -20,16 +20,15 @@ def lue_data(viikkotiedosto: str) -> list:
     """Tämä lukee viikkotiedoston ja palauttaa sopivassa rakenteessa"""
     koko_viikon_tiedot = []
     with open(viikkotiedosto, "r", encoding="utf-8") as f:
-        next(f) #poistetaan ensimmäinen rivi/ sarakkeen tiedot
+        next(f)
         for koko_viikon_tieto in f:
             koko_viikon_tieto = koko_viikon_tieto.strip()
             kvt_sarakkeet = koko_viikon_tieto.split(';')
             koko_viikon_tiedot.append(muunna_tiedot(kvt_sarakkeet))
-
     return koko_viikon_tiedot
 
 def paivan_tiedot(paiva: str, lukemat: list) -> list[float]:
-    """ Tämä lukee lukemat ja yhdistää ne oikeisiin sarakkeisiin"""
+    """ Tämä lukee lukemat ja yhdistää ne oikeisiin sarakkeisiin. """
     pv = int(paiva.split('.')[0])
     kk = int(paiva.split('.')[1])
     v = int(paiva.split('.')[2])
@@ -57,7 +56,7 @@ def paivan_tiedot(paiva: str, lukemat: list) -> list[float]:
     tiedot_summattu.append(tuotantoV3/1000)
     return tiedot_summattu
 
-PAIVAN_NIMET = {
+viikonpaivat = {
     0: "Maanantai",
     1: "Tiistai",
     2: "Keskiviikko",
@@ -73,28 +72,40 @@ def muodosta_paivalista(lukemat: list) -> list[date]:
     return sorted(paivat)
 
 def tulosta_paiva_rivi(pv_nimi: str, pvm_str: str, arvot: list[float]) -> None:
-    """Tämähän tulostaa yhden päivän rivin siististi."""
-    muotoillut = [f"{x:.2f}".replace('.', ',') for x in arvot]
-    print(f"{pv_nimi:<12} {pvm_str:<12}  {muotoillut[0]:>7}  {muotoillut[1]:>7}  {muotoillut[2]:>7}"
-          f"{muotoillut[3]:>7} {muotoillut[4]:>7} {muotoillut[5]:>7}")
+    """Tämä tulostaa yhden päivän rivin siististi."""
+    muotoilut = [f"{x:.2f}".replace('.', ',') for x in arvot]
+    print(
+        f"{pv_nimi:<12} {pvm_str:<12}  "
+        f"{muotoilut[0]:>7}  {muotoilut[1]:>7}  {muotoilut[2]:>7}   "
+        f"{muotoilut[3]:>7} {muotoilut[4]:>7} {muotoilut[5]:>7}"
+    )
 
-def main():
-    """Tämä tulostaa koko viikon tiedot siististi."""
-    lukemat = lue_data("viikko42.csv")
-
-    print("Viikon 42 sähkönkulutus ja -tuotanto (kWh, vaiheittain)", end="\n\n")
+def tulosta_otsikko(otsikko: str) -> None:
+    """Tämä tulostaa raportin otsikon ja taulukon otsakerivit."""
+    print(otsikko)
     print("Päivä        Pvm           Kulutus [kWh]                 Tuotanto [kWh]")
-    print("             (pv.kk.vvvv)   v1      v2      v3             v1     v2     v3")
+    print("             (pv.kk.vvvv)    v1       v2        v3          v1     v2     v3")
     print("---------------------------------------------------------------------------")
 
-    kaikki_paivat = muodosta_paivalista(lukemat)
+def main():
+    """Tämä tulostaa raportit kolmesta eri tiedostosta."""
+    csv_tiedostot = [
+        ("Viikon 41 sähkönkulutus ja -tuotanto (kWh, vaiheittain)", "viikko41.csv"),
+        ("Viikon 42 sähkönkulutus ja -tuotanto (kWh, vaiheittain)", "viikko42.csv"),
+        ("Viikon 43 sähkönkulutus ja -tuotanto (kWh, vaiheittain)", "viikko43.csv"),
+    ]
 
-    for pvm in kaikki_paivat:
-        pvm_str = f"{pvm.day}.{pvm.month}.{pvm.year}"
-        pv_nimi = PAIVAN_NIMET[pvm.weekday()]
-        arvot = paivan_tiedot(pvm_str, lukemat)
-        tulosta_paiva_rivi(pv_nimi, pvm_str, arvot)
-
+    for otsikko, polku in csv_tiedostot:
+        lukemat = lue_data(polku)
+        print()  
+        tulosta_otsikko(otsikko)
+        kaikki_paivat = muodosta_paivalista(lukemat)
+        for pvm in kaikki_paivat:
+            pvm_str = f"{pvm.day:02d}.{pvm.month:02d}.{pvm.year}"
+            pv_nimi = viikonpaivat[pvm.weekday()]
+            arvot = paivan_tiedot(pvm_str, lukemat)
+            tulosta_paiva_rivi(pv_nimi, pvm_str, arvot)
+        print("---------------------------------------------------------------------------")
 
 if __name__ == "__main__":
     main()
