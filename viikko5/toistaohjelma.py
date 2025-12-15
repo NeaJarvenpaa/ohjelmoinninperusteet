@@ -20,7 +20,7 @@ def lue_data(viikkotiedosto: str) -> list:
     """Tämä lukee viikkotiedoston ja palauttaa sopivassa rakenteessa"""
     koko_viikon_tiedot = []
     with open(viikkotiedosto, "r", encoding="utf-8") as f:
-        next(f) #poistetaan ensimmäinen rivi/ sarakkeen tiedot
+        next(f)
         for koko_viikon_tieto in f:
             koko_viikon_tieto = koko_viikon_tieto.strip()
             kvt_sarakkeet = koko_viikon_tieto.split(';')

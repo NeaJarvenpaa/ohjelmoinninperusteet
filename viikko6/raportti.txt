@@ -1,0 +1,6 @@
+-----------------------------------------------------
+Raportti kuulta: Lokakuu 
+- Kokonaiskulutus: 659,78 kWh
+- Kokonaistuotanto: 78,70 kWh
+- Keskilämpötila: 0,28 °C
+-----------------------------------------------------

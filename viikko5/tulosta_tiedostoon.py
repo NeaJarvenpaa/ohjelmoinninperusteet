@@ -26,6 +26,7 @@ def lue_data(viikkotiedosto: str) -> list:
             koko_viikon_tieto = koko_viikon_tieto.strip()
             kvt_sarakkeet = koko_viikon_tieto.split(';')
             koko_viikon_tiedot.append(muunna_tiedot(kvt_sarakkeet))
+            
     return koko_viikon_tiedot
 
 def paivan_tiedot(paiva: str, lukemat: list) -> list[float]:
